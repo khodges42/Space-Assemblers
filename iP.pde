@@ -9,6 +9,7 @@ String[] ArrayCommands;
 String[] cmdCopy;
 int time;
 int execute = 1000;
+String currentCmd = "";
 //int shipX = 500;
 //int shipY = 600;
 ControlP5 cp5;
@@ -103,7 +104,7 @@ void draw() {
   
   //Ticks to execute commands
   if((millis() - time >= execute)&&(listCommands.length()>0)){
-    String currentCmd = processCmds(ArrayCommands);
+    currentCmd = processCmds(ArrayCommands);
     if(currentCmd.length()>0){ship.executeCmds(currentCmd);}
     //listCommands = listCommands.replace(processCmds(listCommands),"");
     time = millis();
@@ -117,6 +118,7 @@ void draw() {
                                                         cmdTextArea.setText(listCommands);
        
   }
+  else{ship.executeCmds(currentCmd);}
  // nebula.set("time", millis() / 5000.0);  
  // shader(nebula); 
   myTextarea.setText(sCommand);
@@ -157,9 +159,9 @@ class Ship{
     else if(cmd[1].equals("RIGHT")){shipX = shipX + 1;}
     else if(cmd[1].equals("UP")){shipY = shipY - 1;}
     else if(cmd[1] .equals("DOWN")){shipY = shipY + 1;}
-      else { print( cmd[1]+" NOT RECOGNIZED");}
+      //else { print( cmd[1]+" NOT RECOGNIZED");}
   }
-   else { print( cmd[0]+" NOT RECOGNIZED");}
+   //else { print( cmd[0]+" NOT RECOGNIZED");}
 
 }
 void drawShip(){
