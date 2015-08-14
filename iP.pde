@@ -161,6 +161,14 @@ class Ship{
     else if(cmd[1] .equals("DOWN")){shipY = shipY + 1;}
       //else { print( cmd[1]+" NOT RECOGNIZED");}
   }
+  if(cmd[0].equals("HALT")){}
+  if(cmd[0].equals("FIRE")){}
+  if(cmd[0].equals("SHIELDS")){
+     if(cmd[1].equals("ACTIVATE")){}
+     if(cmd[1].equals("deactivate")){}
+     }
+     
+  
    //else { print( cmd[0]+" NOT RECOGNIZED");}
 
 }
