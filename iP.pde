@@ -9,11 +9,13 @@ String[] ArrayCommands;
 String[] cmdCopy;
 int time;
 int execute = 1000;
-int shipX = 500;
-int shipY = 600;
+//int shipX = 500;
+//int shipY = 600;
 ControlP5 cp5;
 Textarea myTextarea;
 Textarea cmdTextArea;
+
+Ship ship = new Ship(500,800);
 
 void setup() {
   time = millis();
@@ -79,7 +81,7 @@ void draw() {
  // noFill();
 //rect(0,0,width,height);
   //triangle(shipX,shipY,shipX+5,shipY, shipX, shipX+5);
-  rect(shipX, shipY,10,10);
+  
 
   if(keyPressed && key==ENTER) {
     if(sCommand.length()>0){
@@ -101,7 +103,7 @@ void draw() {
   //Ticks to execute commands
   if((millis() - time >= execute)&&(listCommands.length()>0)){
     String currentCmd = processCmds(ArrayCommands);
-    print(currentCmd);
+    if(currentCmd.length()>0){ship.executeCmds(currentCmd);}
     //listCommands = listCommands.replace(processCmds(listCommands),"");
     time = millis();
     //listCommands = listCommands.substring(currentCmd.length()+1);
@@ -112,11 +114,12 @@ void draw() {
                    listCommands += ArrayCommands[i]+"\n";
                                                         }
                                                         cmdTextArea.setText(listCommands);
-       executeCmds(shipX,shipY,currentCmd);
+       
   }
  // nebula.set("time", millis() / 5000.0);  
  // shader(nebula); 
-  
+  myTextarea.setText(sCommand);
+  ship.drawShip();
   
 }
 
@@ -126,19 +129,7 @@ String processCmds(String[] ArrayCommands){
   
   
 }
-int executeCmds(int shipX,int shipY, String currentCmd){ //MOV LEFT 10
 
-    String[] cmd = split(currentCmd,' ');
-  if(cmd[0]=="MOV"){
-    if(cmd[1] == "LEFT"){shipX = shipX + 100;}
-    else if(cmd[1] == "RIGHT"){shipX = shipX - 100;}
-    else if(cmd[1] == "UP"){shipY = shipY + 100;}
-    else if(cmd[1] == "DOWN"){shipY = shipY - 100;}
-      else { print("COMMAND NOT FOUND");}
-  }
-   else { print("COMMAND NOT FOUND");}
-  return 0;
-}
     
 
 void keyPressed() {
@@ -149,6 +140,31 @@ void keyPressed() {
   } else if (keyCode != SHIFT && keyCode != CONTROL && keyCode != ALT) {
     sCommand = sCommand + key;
   }
+}
+
+class Ship{
+  int shipX,shipY;
+  Ship (int x, int y){
+    shipX = x;
+    shipY = y;
+  }
+  void executeCmds(String currentCmd){ //MOV LEFT 10
+
+    String[] cmd = split(currentCmd,' ');
+  if(cmd[0]=="MOV"){
+    
+    if(cmd[1] == "LEFT"){shipX = shipX + 100;}
+    else if(cmd[1] == "RIGHT"){shipX = shipX - 100;}
+    else if(cmd[1] == "UP"){shipY = shipY + 100;}
+    else if(cmd[1] == "DOWN"){shipY = shipY - 100;}
+      else { print( cmd[1]+" ");}
+  }
+   else { print( cmd[0]+" ");}
+
+}
+void drawShip(){
+  rect(shipX, shipY,10,10);
+}
 }
 //void changeWidth(int theValue) {
  // myTextarea.setWidth(theValue);
