@@ -9,6 +9,8 @@ String[] ArrayCommands;
 String[] cmdCopy;
 int time;
 int execute = 1000;
+int shipX = 500;
+int shipY = 600;
 ControlP5 cp5;
 Textarea myTextarea;
 Textarea cmdTextArea;
@@ -76,8 +78,9 @@ void draw() {
  // noStroke();
  // noFill();
 //rect(0,0,width,height);
-  myTextarea.setText(sCommand);
-  //cmdTextArea.setText(listCommands);
+  //triangle(shipX,shipY,shipX+5,shipY, shipX, shipX+5);
+  rect(shipX, shipY,10,10);
+
   if(keyPressed && key==ENTER) {
     if(sCommand.length()>0){
 
@@ -109,7 +112,7 @@ void draw() {
                    listCommands += ArrayCommands[i]+"\n";
                                                         }
                                                         cmdTextArea.setText(listCommands);
-       
+       executeCmds(shipX,shipY,currentCmd);
   }
  // nebula.set("time", millis() / 5000.0);  
  // shader(nebula); 
@@ -120,7 +123,23 @@ void draw() {
 String processCmds(String[] ArrayCommands){
   
   return ArrayCommands[0];
+  
+  
 }
+int executeCmds(int shipX,int shipY, String currentCmd){ //MOV LEFT 10
+
+    String[] cmd = split(currentCmd,' ');
+  if(cmd[0]=="MOV"){
+    if(cmd[1] == "LEFT"){shipX = shipX + 100;}
+    else if(cmd[1] == "RIGHT"){shipX = shipX - 100;}
+    else if(cmd[1] == "UP"){shipY = shipY + 100;}
+    else if(cmd[1] == "DOWN"){shipY = shipY - 100;}
+      else { print("COMMAND NOT FOUND");}
+  }
+   else { print("COMMAND NOT FOUND");}
+  return 0;
+}
+    
 
 void keyPressed() {
    if (keyCode == BACKSPACE) {
