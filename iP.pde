@@ -104,8 +104,8 @@ void draw() {
   
   //Ticks to execute commands
   if((millis() - time >= execute)&&(listCommands.length()>0)){
-    currentCmd = processCmds(ArrayCommands);
-    if(currentCmd.length()>0){ship.executeCmds(currentCmd);}
+   if(processCmds(ArrayCommands).length()>0){ currentCmd = processCmds(ArrayCommands);}
+    //if(currentCmd.length()>0){ship.executeCmds(currentCmd);}
     //listCommands = listCommands.replace(processCmds(listCommands),"");
     time = millis();
     //listCommands = listCommands.substring(currentCmd.length()+1);
@@ -118,7 +118,7 @@ void draw() {
                                                         cmdTextArea.setText(listCommands);
        
   }
-  else{ship.executeCmds(currentCmd);}
+  ship.executeCmds(currentCmd);
  // nebula.set("time", millis() / 5000.0);  
  // shader(nebula); 
   myTextarea.setText(sCommand);
