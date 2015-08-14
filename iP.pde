@@ -15,9 +15,10 @@ ControlP5 cp5;
 Textarea myTextarea;
 Textarea cmdTextArea;
 
-Ship ship = new Ship(500,800);
+Ship ship;
 
 void setup() {
+  ship = new Ship(500,800);
   time = millis();
   size(1000,1000, P2D);
   cp5 = new ControlP5(this);
@@ -150,16 +151,15 @@ class Ship{
   }
   void executeCmds(String currentCmd){ //MOV LEFT 10
 
-    String[] cmd = split(currentCmd,' ');
-  if(cmd[0]=="MOV"){
-    
-    if(cmd[1] == "LEFT"){shipX = shipX + 100;}
-    else if(cmd[1] == "RIGHT"){shipX = shipX - 100;}
-    else if(cmd[1] == "UP"){shipY = shipY + 100;}
-    else if(cmd[1] == "DOWN"){shipY = shipY - 100;}
-      else { print( cmd[1]+" ");}
+    String[] cmd = split(currentCmd," ");
+  if(cmd[0].equals("MOV")){
+    if(cmd[1].equals("LEFT")){shipX = shipX - 1;}
+    else if(cmd[1].equals("RIGHT")){shipX = shipX + 1;}
+    else if(cmd[1].equals("UP")){shipY = shipY - 1;}
+    else if(cmd[1] .equals("DOWN")){shipY = shipY + 1;}
+      else { print( cmd[1]+" NOT RECOGNIZED");}
   }
-   else { print( cmd[0]+" ");}
+   else { print( cmd[0]+" NOT RECOGNIZED");}
 
 }
 void drawShip(){
